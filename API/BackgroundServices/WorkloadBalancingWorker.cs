@@ -55,6 +55,8 @@ public class WorkloadBalancingWorker
                         }
                     }
                 }
+
+                 
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "Error in Workload Balancing Worker");
