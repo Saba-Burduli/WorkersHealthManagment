@@ -24,7 +24,6 @@ public class HealthMonitoringWorker
                     using var scope = _serviceProvider.CreateScope();
                     var workerTaskService = scope.ServiceProvider.GetRequiredService<IWorkerTaskService>();
 
-                    // Monitor worker health based on task load
                     var allTasks = await workerTaskService.GetAllTasksAsync();
                     var workerGroups = allTasks.GroupBy(t => t.AssignedWorker);
 
