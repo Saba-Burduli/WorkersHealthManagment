@@ -5,11 +5,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Database
 builder.Services.AddDbContext<WorkersHealthDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("WorkersHealthManagment")));
 
-// Repository and Service registration
+// Repository and Service :
 builder.Services.AddScoped<IWorkerTaskRepository, WorkerTaskRepository>();
 builder.Services.AddScoped<IWorkerTaskService, WorkerTaskService>();
 
@@ -21,7 +20,6 @@ builder.Services.AddHostedService<HealthMonitoringWorker>();
 builder.Services.AddHostedService<TaskProcessingWorker>();
 builder.Services.AddHostedService<WorkloadBalancingWorker>();
 
-// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
@@ -46,7 +44,7 @@ app.UseCors("AllowAll");
 app.UseAuthorization();
 app.MapControllers();
 
-// Auto-migration
+// auto -migration
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<WorkersHealthDbContext>();
