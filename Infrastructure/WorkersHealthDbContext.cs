@@ -1,13 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
 
-
-    public class WorkersHealthDbContext : WorkersHealthDbContext
+    public class WorkersHealthDbContext : DbContext
     {
-        public DbSet<Worker> WorkerTasks { get; set; }
+        public WorkersHealthDbContext(DbContextOptions<WorkersHealthDbContext> options) : base(options)
+        {
+           
+        }
 
-        protected override void OnModelCreating(modelBuilder modelBuilder)
+        public DbSet<WorkerTask> WorkerTasks { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<WorkerTask>(entity =>
             {

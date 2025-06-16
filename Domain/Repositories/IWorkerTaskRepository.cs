@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using TaskStatus = System.Threading.Tasks.TaskStatus;
 
+
 namespace Domain.Repositories;
 
 public interface IWorkerTaskRepository
@@ -18,9 +19,9 @@ public interface IWorkerTaskRepository
 
   public class WorkerTaskRepository : IWorkerTaskRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly WorkersHealthDbContext _context;
 
-        public WorkerTaskRepository(ApplicationDbContext context)
+        public WorkerTaskRepository(WorkersHealthDbContext context)
         {
             _context = context;
         }
