@@ -33,7 +33,6 @@ public class HealthMonitoringWorker
                         var workerName = workerGroup.Key;
                         var activeTasks = workerGroup.Count(t => t.Status == "InProgress" || t.Status == "Pending");
                         
-                        // Determine health status based on workload
                         var healthStatus = activeTasks switch
                         {
                             > 10 => "Overloaded",
@@ -41,7 +40,6 @@ public class HealthMonitoringWorker
                             _ => "Healthy"
                         };
 
-                        // Update tasks with new health status if needed
                         foreach (var task in workerGroup.Where(t => t.WorkerHealthStatus != healthStatus))
                         {
                             await workerTaskService.UpdateTaskAsync(task.Id, new()
