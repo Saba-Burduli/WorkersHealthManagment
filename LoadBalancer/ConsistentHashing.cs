@@ -1,4 +1,5 @@
-﻿HEADERnamespace a;
+﻿using System.Security.Cryptography;
+using System.Text;
 
     public class ConsistentHashRing
     {
