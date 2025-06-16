@@ -1,7 +1,31 @@
-﻿services:
+﻿version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "YourStrongPassword123!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+
   api:
-    image: api
+    build: .
+    ports:
+      - "5000:80"
+    depends_on:
+      - sqlserver
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=TodoWorkersHealthDb;User Id=sa;Password=YourStrongPassword123!;TrustServerCertificate=true
+
+volumes:
+  sqlserver_data:
+    api-1:
+    image: api-1
     build:
       context: .
-      dockerfile: Api/Dockerfile
+      dockerfile: API/Dockerfile
 
